@@ -1,0 +1,15 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# build outputs
+apps/**/.next
+apps/**/dist
+apps/**/out
+
+# logs
+*.log
+
+# env files
+.env
+.env.local
