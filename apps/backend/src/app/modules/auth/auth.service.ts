@@ -8,6 +8,7 @@ import  httpStatus  from 'http-status-codes';
 import jwt from "jsonwebtoken"
 import { IsActive } from "../user/user.interface";
 import { sendEmail } from "../../utils/sendEmail";
+
 export const getNewAccessTokenService = async (refreshToken: string) => {
     const newAccessToken = await createNewAccessTokenWithRefreshToken(refreshToken)
 
@@ -95,3 +96,4 @@ export const resetPasswordService = async (payload: Record<string, any>, decoded
 
     await isUserExist.save()
 }
+

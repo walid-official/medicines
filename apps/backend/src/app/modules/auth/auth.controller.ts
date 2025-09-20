@@ -7,7 +7,7 @@ import { sendResponse } from "../../utils/sendResponse"
 import httpStatus from "http-status";
 import { User } from "../user/user.model"
 import bcryptjs from "bcryptjs";
-import { changePasswordService, forgotPasswordService, getNewAccessTokenService, resetPasswordService } from "./auth.service"
+import { changePasswordService,  forgotPasswordService,  getNewAccessTokenService, resetPasswordService } from "./auth.service"
 import { JwtPayload } from "jsonwebtoken"
 import { envVars } from "../../config/env"
 
@@ -166,3 +166,4 @@ export const googleCallbackController = catchAsync(async (req: Request, res: Res
 
     res.redirect(`${envVars.FRONTEND_URL}/${redirectTo}`)
 })
+

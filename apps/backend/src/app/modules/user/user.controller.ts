@@ -1,6 +1,6 @@
 import { catchAsync } from "../../utils/catchAsync"
 import { sendResponse } from "../../utils/sendResponse"
-import { createUserService, updateUserService } from "./user.service"
+import { createUserService, getLoggedInRoleService, getLoggedInUserService, updateUserService } from "./user.service"
 import httpStatus from "http-status"
 import { Request, Response, NextFunction } from "express"
 import { JwtPayload } from "jsonwebtoken"
@@ -40,3 +40,43 @@ export const updateUserController = catchAsync(async (req: Request, res: Respons
         data: user,
     })
 })
+
+export const getLoggedInUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const decodedToken = req.user as JwtPayload | undefined
+
+    if (!decodedToken) {
+       res.status(httpStatus.UNAUTHORIZED).json({
+        success: false,
+        message: "Unauthorized. No user found in request.",
+      })
+      return;
+    }
+ const user = await getLoggedInRoleService(decodedToken)
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Logged in user retrieved successfully",
+    data: user,
+  })
+})
+export const getLoggedInRoleUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+ const decodedToken = req.user as JwtPayload | undefined
+
+    if (!decodedToken) {
+       res.status(httpStatus.UNAUTHORIZED).json({
+        success: false,
+        message: "Unauthorized. No user found in request.",
+      })
+      return;
+    }
+
+    const user = await getLoggedInRoleService(decodedToken)
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Logged in user retrieved successfully",
+    data: user?.role,
+  })
+})
+

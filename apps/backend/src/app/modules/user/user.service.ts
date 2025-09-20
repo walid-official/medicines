@@ -74,3 +74,28 @@ export const updateUserService = async (userId: string, payload: Partial<IUser>,
 
     return newUpdatedUser
 }
+
+export const getLoggedInUserService = async (decodedToken: JwtPayload) => {
+  if (!decodedToken || !decodedToken.userId) {
+    throw new AppError(httpStatus.UNAUTHORIZED, "Not authenticated")
+  }
+
+  const user = await User.findById(decodedToken.userId).select("-password")
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found")
+  }
+
+  return user
+}
+export const getLoggedInRoleService = async (decodedToken: JwtPayload) => {
+  if (!decodedToken || !decodedToken.userId) {
+    throw new AppError(httpStatus.UNAUTHORIZED, "Not authenticated")
+  }
+
+  const user = await User.findById(decodedToken.userId).select("-password")
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found")
+  }
+
+  return user
+}
