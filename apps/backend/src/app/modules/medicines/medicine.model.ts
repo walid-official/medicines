@@ -2,31 +2,44 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IMedicine extends Document {
   name: string;
-  genericName: string;
-  strength: string;
-  manufacturer: string;
-  brand: string;
+  strength?: string;
+  manufacturer?: string;
   category: string;
-  batchNumber: string;
-  expiryDate: Date | null;
-  mrp: number;
+  batchNumber?: string;
+  expiryDate: Date;
+  mrp?: number;
+  price: number;
   quantity: number;
 }
 
+// Define manual categories
+const medicineCategories = [
+  "Pain Relief",
+  "Antibiotic",
+  "Vitamin & Supplement",
+  "Cold & Flu",
+  "Digestive Health",
+  "Skin Care",
+  "Cardiovascular",
+  "Diabetes",
+  "Respiratory",
+  "Others",
+];
+
 const MedicineSchema: Schema = new Schema(
   {
-    name: { type: String, required: true },
-    genericName: { type: String, required: true },
-    strength: { type: String, required: true },
-    manufacturer: { type: String, required: true },
-    brand: { type: String },
-    category: { type: String },
-    batchNumber: { type: String, default: "" },
-    expiryDate: { type: Date, default: null },
-    mrp: { type: Number, default: 0 },
-    quantity: { type: Number, default: 0 }
+    name: { type: String, required: true, trim: true },
+    strength: { type: String, required: false, trim: true },
+    manufacturer: { type: String, required: false, trim: true },
+    category: { type: String, required: true, enum: medicineCategories },
+    batchNumber: { type: String, required: false, default: "", trim: true },
+    expiryDate: { type: Date, required: true },
+    mrp: { type: Number, required: false, default: 0 },
+    price: { type: Number, required: true, default: 0 },
+    quantity: { type: Number, required: true, min: 0 },
   },
   { timestamps: true }
 );
 
 export const MedicineModel = mongoose.model<IMedicine>("Medicine", MedicineSchema);
+export { medicineCategories };

@@ -23,55 +23,6 @@ export const createMedicineController = catchAsync(
   }
 );
 
-// Get all medicines with pagination and search
-// export const getMedicinesController = catchAsync(
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     const { page, limit, search } = req.query;
-//     const result = await getMedicines({
-//       page: Number(page) || 1,
-//       limit: Number(limit) || 10,
-//       search: String(search) || "",
-//     });
-
-//     sendResponse(res, {
-//       success: true,
-//       statusCode: httpStatus.OK,
-//       message: "Medicines retrieved successfully",
-//       data: result,
-//     });
-//   }
-// );
-
-
-// export const getMedicinesController = catchAsync(
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     const result = await getMedicines();
-
-//     sendResponse(res, {
-//       success: true,
-//       statusCode: httpStatus.OK,
-//       message: "Medicines retrieved successfully",
-//       data: result,
-//     });
-//   }
-// );
-
-// Controller
-// export const getMedicinesController = catchAsync(
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     const { search } = req.query;
-
-//     const result = await getMedicines(search as string);
-
-//     sendResponse(res, {
-//       success: true,
-//       statusCode: httpStatus.OK,
-//       message: "Medicines retrieved successfully",
-//       data: result,
-//     });
-//   }
-// );
-
 export const getMedicinesController = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { search, page, limit } = req.query;
