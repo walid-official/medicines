@@ -10,6 +10,7 @@ import {
   updateMedicine,
 } from "./medicine.service";
 
+
 // Create a new medicine
 export const createMedicineController = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
